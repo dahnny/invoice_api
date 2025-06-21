@@ -2,7 +2,6 @@
 
 A lightweight and scalable Invoice Management API built with **FastAPI**. This API is designed for managing user accounts, authentication, and issuing invoices with support for future extensions like payment integration, PDF export, and more.
 
----
 
 ## 🚀 Features
 
@@ -15,12 +14,6 @@ A lightweight and scalable Invoice Management API built with **FastAPI**. This A
 - Pydantic-based request validation
 - Modular, production-ready project structure
 
----
-
-## 🏗 Project Structure
-
-
----
 
 ## 📦 Installation
 
@@ -54,7 +47,9 @@ pip install -r requirements.txt
    SECRET_KEY=your_secret_key
    DATABASE_URL=sqlite:///./test.db  # or your database URL
    ```
+
 6. **Run the application**
+
 ```bash
 uvicorn app.main:app --reload
 ```
@@ -62,3 +57,4 @@ uvicorn app.main:app --reload
 ## 📖 API Documentation
 Visit the interactive API documentation at [http://localhost:8000/docs](http://localhost:8000/docs) after running the application.
 
+ 
