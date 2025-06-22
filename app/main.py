@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from app.routes import user 
-from app.routes import auth
+from app.routes import user, auth, invoice
+
 from starlette.middleware.sessions import SessionMiddleware
 from app.core.config import settings 
 
@@ -18,3 +18,4 @@ async def root():
 
 app.include_router(user.router, prefix="/api/v1", tags=["users"])
 app.include_router(auth.router, prefix="/api/v1", tags=["auth"])
+app.include_router(invoice.router, prefix="/api/v1", tags=["invoices"])
