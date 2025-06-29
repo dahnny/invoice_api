@@ -1,60 +1,51 @@
-# Invoice API
+# INVOICE API
 
-A lightweight and scalable Invoice Management API built with **FastAPI**. This API is designed for managing user accounts, authentication, and issuing invoices with support for future extensions like payment integration, PDF export, and more.
+This is a simple invoice API built with FastAPI, PostgreSQL, and Docker. It allows you to create, retrieve, update, and delete invoices. The API also supports user authentication and authorization.
 
+## Features
+- Create, retrieve, update, and delete invoices
+- User authentication and authorization
+- PDF generation for invoices
+- Email notifications for invoice events
+- Docker support for easy deployment
+- Celery for background tasks
 
-## 🚀 Features
+## Requirements
+- Python 3.8 or higher
+- PostgreSQL
+- Docker (for deployment)
+- Docker Compose (for local development)
 
-- User registration and login
-- JWT-based authentication
-- Role-based access control (e.g., admin, staff)
-- CRUD operations for invoices
-- Association between users and invoices
-- RESTful and clean endpoint design
-- Pydantic-based request validation
-- Modular, production-ready project structure
-
-
-## 📦 Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/yourusername/invoice-api.git
-cd invoice-api
-```
-2. **Create a virtual environment**
-```bash
-python -m venv venv
-```
-
-3. **Activate the virtual environment**
-   - On Windows:
+## Installation
+1. Clone the repository:
    ```bash
-   venv\Scripts\activate
+   git clone https://github.com/yourusername/invoice-api.git
+   cd invoice-api
    ```
-   - On macOS/Linux:
+2. Create a `.env` file in the root directory and set the required environment variables. You can use the `.env.example` file as a reference.
+3. Install the required Python packages:
    ```bash
-   source venv/bin/activate
+   pip install -r requirements.txt
    ```
-4. **Install dependencies**
+4. Run the database migrations:
+   ```bash
+   alembic upgrade head
+   ```
+5. Start the application:
+   ```bash
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+6. (Optional) If you want to run the application using Docker, use the following command:
+   ```bash
+   docker-compose up --build
+   ```   
+
+## Usage
+You can access the API at `http://localhost:8000`. The API documentation is available at `http://localhost:8000/docs`.
+
+## Running Tests
+To run the tests, use the following command:
 ```bash
-pip install -r requirements.txt
+pytest
 ```
 
-5. **Set up environment variables**
-   - Create a `.env` file in the root directory and add your configuration:
-   ```plaintext
-   SECRET_KEY=your_secret_key
-   DATABASE_URL=sqlite:///./test.db  # or your database URL
-   ```
-
-6. **Run the application**
-
-```bash
-uvicorn app.main:app --reload
-```
-
-## 📖 API Documentation
-Visit the interactive API documentation at [http://localhost:8000/docs](http://localhost:8000/docs) after running the application.
-
- 
