@@ -5,6 +5,8 @@ from app.pdf.generate import generate_invoice_pdf
 from app.crud.invoice import *
 from app.schemas.invoice import InvoiceCreate, InvoiceResponse, InvoiceUpdate
 from app.models.user import User
+from app.tasks.email import send_invoice_email
+from app.core.config import settings
 from typing import List
 
 
@@ -22,6 +24,16 @@ def create_new_invoice(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Failed to create invoice"
         )
+    send_invoice_email.delay(
+        new_invoice.client_email,
+        { 
+            "id": new_invoice.id,
+            "client_email": new_invoice.client_email,
+            "amount": new_invoice.amount,
+            "description": new_invoice.description,
+            "created_at": new_invoice.created_at.isoformat(),
+        }
+    )
     return new_invoice
 
 
@@ -107,7 +119,21 @@ def download_invoice_pdf(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Invoice not found"
         )
-    path = generate_invoice_pdf(invoice.__dict__)
+    
+    # Properly serialize the invoice data
+    invoice_data = {
+        'id': invoice.id,
+        'owner_id': invoice.owner_id,
+        'client_name': invoice.client_name,
+        'client_email': invoice.client_email,
+        'description': invoice.description,
+        'amount': invoice.amount,
+        'status': invoice.status,
+        'created_at': invoice.created_at,  # Keep as datetime object
+        'updated_at': invoice.updated_at
+    }
+    
+    path = generate_invoice_pdf(invoice_data)
     if not path:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

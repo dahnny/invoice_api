@@ -13,6 +13,12 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_ID: str
     GOOGLE_CLIENT_SECRET: str
     GOOGLE_SECRET_KEY: str
+    CELERY_BROKER_URL: str 
+    CELERY_RESULT_BACKEND: str
+    EMAIL_HOST: str
+    EMAIL_PORT: int
+    EMAIL_USERNAME: str
+    EMAIL_PASSWORD: str 
     
     class Config:
         env_file=".env"

@@ -14,7 +14,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World. This is an invoice service."}
+    return {"message": "Hello World!"}
 
 app.include_router(user.router, prefix="/api/v1", tags=["users"])
 app.include_router(auth.router, prefix="/api/v1", tags=["auth"])
